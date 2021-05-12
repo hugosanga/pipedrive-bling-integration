@@ -1,73 +1,60 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+**Table of Contents**
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+- [PipeDrive-Bling Integration](#pipedrive-bling-integration)
+- [Quickstart Guide](#quickstart-guide)
+- [Endpoints Definiton](#endpoints-definiton)
+  * [Core Integration](#core-integration)
+  * [Total Value by Day](#total-value-by-day)
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# PipeDrive-Bling Integration
 
-## Description
+A simple integration between PipeDrive and Bling. It turns all the Deals registered on PipeDrive as Won into a Bling order. The service runs automatically everyday at 00:05 a.m. (America/Sao_Paulo timezone) and also register the total value of the day in a MongoDB.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+There are also two endpoints available. The first one allow the user to run the core integration manually to a given date and the second endpoint returns all values registered in the database.
 
-## Installation
+# Quickstart Guide
 
-```bash
-$ npm install
-```
+First clone this repository.
 
-## Running the app
+`$ git clone https://github.com/hugosanga/pipedrive-bling-integration.git`
 
-```bash
-# development
-$ npm run start
+Install all the necessary packages.
 
-# watch mode
-$ npm run start:dev
+`$ npm install`
 
-# production mode
-$ npm run start:prod
-```
+Create a file named ".env" in the root of the application, with the following variables.
 
-## Test
+	PIPEDRIVE_API_TOKEN=<pipedrive_api_token>
+	BLING_API_TOKEN=<bling_api_token>
+	MONGODB_URI=<mongodb_uri>
+	MONGODB_USER=<mongodb_user>
+	MONGODB_PASSWORD=<mongodb_password>
+	MONGODB_DBNAME=<mongodb_dbname>
 
-```bash
-# unit tests
-$ npm run test
+Then start the application in production mode.
 
-# e2e tests
-$ npm run test:e2e
+`$ npm run start:prod`
 
-# test coverage
-$ npm run test:cov
-```
+# Endpoints Definiton
+## Core Integration
+![GET](https://img.shields.io/badge/METHOD-GET-green) `/integration`
 
-## Support
+All the Won Deals registered on PipeDrive at the given date will be posted on Bling as an order and the total value of the day will be registered in the MongoDB.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+<h4><b>Query Parameters:</b></h4>
 
-## Stay in touch
+| Parameter   | Description |
+| ------------- | ------------- |
+| date (optional) `string` | Datestring on format YYYY-MM-DD. If not supplied the date will be set as today. |
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## Total Value by Day
+![GET](https://img.shields.io/badge/METHOD-GET-green) `/deals`
 
-## License
 
-Nest is [MIT licensed](LICENSE).
+Returns all the entries registered in the MongoDB, limited to 100 results, ordered by date. Can receive a parameter to filter just the results after the supplied date.
+
+<h4><b>Query Parameters:</b></h4>
+
+| Parameter   | Description |
+| ------------- | ------------- |
+| laterThan (optional) `string` | Datestring on format YYYY-MM-DD. If not supplied it will be set as today. |
