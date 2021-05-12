@@ -31,9 +31,9 @@ Create a file named ".env" in the root of the application, with the following va
 	MONGODB_PASSWORD=<mongodb_password>
 	MONGODB_DBNAME=<mongodb_dbname>
 
-Then start the application.
+Then start the application in production mode.
 
-`$ npm run start`
+`$ npm run start:prd`
 
 # Endpoints Definiton
 ## Core Integration
