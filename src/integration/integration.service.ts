@@ -1,4 +1,5 @@
 import { BadGatewayException, Injectable, Logger } from '@nestjs/common';
+import { Cron } from '@nestjs/schedule';
 import { BlingService } from 'src/bling/bling.service';
 import { DealsService } from 'src/deals/deals.service';
 import { PipeDriveService } from 'src/pipedrive/pipedrive.service';
@@ -70,6 +71,10 @@ export class IntegrationService {
     }
   }
 
+  @Cron('0 5 0 * * *', {
+    name: 'PipeDrive to Bling',
+    timeZone: 'America/Sao_Paulo',
+  })
   async pipeDriveWonsToBlingOrders(query: IntegrationDTO) {
     const { deals, date, total } = await this.getDeals(query)
 
@@ -86,13 +91,13 @@ export class IntegrationService {
       if(resp === ResponseTypes.REJECTED) failedOrders.push({deal, person})
     }
 
-    await this.dealsService.registerDeal({
+    const resp = await this.dealsService.registerDeal({
       date,
       success: true,
       failedOrders,
       total,
     })
     
-    return deals
+    return resp
   }
 }

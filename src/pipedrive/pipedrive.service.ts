@@ -1,5 +1,4 @@
 import { Injectable, HttpService, InternalServerErrorException, Logger } from '@nestjs/common';
-import { PipeDriveDTO } from './dto/pipedrive.dto';
 import * as moment from "moment";
 
 @Injectable()
@@ -33,7 +32,7 @@ export class PipeDriveService {
     }
   }
 
-  async getAllDayWonDeals(query: PipeDriveDTO) {
+  async getAllDayWonDeals(query) {
     try {
       const date = query.date || moment(new Date()).format('YYYY-MM-DD')
 
