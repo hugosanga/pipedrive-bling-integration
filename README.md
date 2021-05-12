@@ -8,7 +8,7 @@ A simple integration between PipeDrive and Bling. It turns all the Deals registe
 
 There are also two endpoints available. The first one allow the user to run the core integration manually to a given date and the second endpoint returns all values registered in the database.
 
-#Quickstart guide
+# Quickstart guide
 
 First clone this repository.
 
@@ -31,8 +31,8 @@ Then start the application.
 
 `$ npm run start`
 
-#Endpoints Definiton
-##Core Integration
+# Endpoints Definiton
+## Core Integration
 ![GET](https://img.shields.io/badge/METHOD-GET-green) `/integration`
 
 All the Won Deals registered on PipeDrive at the given date will be posted on Bling as an order and the total value of the day will be registered in the MongoDB.
@@ -43,7 +43,7 @@ All the Won Deals registered on PipeDrive at the given date will be posted on Bl
 | ------------- | ------------- |
 | date (optional) `string` | Datestring on format YYYY-MM-DD. If not supplied the date will be set as today. |
 
-##Total Value by Day
+## Total Value by Day
 ![GET](https://img.shields.io/badge/METHOD-GET-green) `/deals`
 
 
