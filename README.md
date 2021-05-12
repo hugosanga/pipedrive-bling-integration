@@ -33,7 +33,7 @@ Create a file named ".env" in the root of the application, with the following va
 
 Then start the application in production mode.
 
-`$ npm run start:prd`
+`$ npm run start:prod`
 
 # Endpoints Definiton
 ## Core Integration
