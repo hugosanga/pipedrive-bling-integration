@@ -1,6 +1,10 @@
 **Table of Contents**
 
-[TOC]
+- [PipeDrive-Bling Integration](#pipedrive-bling-integration)
+- [Quickstart Guide](#quickstart-guide)
+- [Endpoints Definiton](#endpoints-definiton)
+  * [Core Integration](#core-integration)
+  * [Total Value by Day](#total-value-by-day)
 
 # PipeDrive-Bling Integration
 
@@ -8,7 +12,7 @@ A simple integration between PipeDrive and Bling. It turns all the Deals registe
 
 There are also two endpoints available. The first one allow the user to run the core integration manually to a given date and the second endpoint returns all values registered in the database.
 
-# Quickstart guide
+# Quickstart Guide
 
 First clone this repository.
 
